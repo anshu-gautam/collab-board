@@ -1,59 +1,44 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
 import Image from "next/image";
-
-import { useMutation } from "convex/react";
-import { useOrganization } from "@clerk/nextjs";
-import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useOrganization } from "@clerk/nextjs";
 
-// custom hook useCase
-// import { useApiMutation } from "@/hooks/use-api-mutation";
+import { api } from "@/convex/_generated/api";
+import { Button } from "@/components/ui/button";
+import { useApiMutation } from "@/hooks/use-api-mutation";
 
 export const EmptyBoards = () => {
+  const router = useRouter();
   const { organization } = useOrganization();
-
-  const create = useMutation(api.board.create);
-
-  // custom hook useCase
-  // const {mutate, pending} = useApiMutation(api.board.create);
+  const { mutate, pending } = useApiMutation(api.board.create);
 
   const onClick = () => {
     if (!organization) return;
-    create({
+
+    mutate({
       orgId: organization.id,
       title: "Untitled",
     })
       .then((id) => {
-        toast.success("Board Created");
+        toast.success("Board created");
+        router.push(`/board/${id}`);
       })
       .catch(() => toast.error("Failed to create board"));
-
-    // custom hook useCase
-    // }
-    // const onClick = () => {
-    //   if (!organization) return;
-    //   mutate({
-    //     orgId: organization.id,
-    //     title: "Untitled",
-    //   });
   };
 
   return (
-    <div className="h-ful flex flex-col items-center justify-center">
-      <Image src="/note.svg" alt="empty-favou" height={110} width={110} />
-      <h2 className="text-2xl font-semibold mt-6"> Create your first board</h2>
-      <p className="text-muted-foreground text-sm mt-2">
-        Start creating boards for your organization
+    <div className="h-full flex flex-col items-center justify-center">
+      <Image src="/note.svg" height={110} width={110} alt="Empty" />
+      <h2 className="text-2xl font-semibold mt-6">Create your first board!</h2>
+      <p className="text-muted-foreground textg-sm mt-2">
+        Start by creating a board for your organization
       </p>
       <div className="mt-6">
-        <Button size="lg" onClick={onClick}>
-          Create your Board
+        <Button disabled={pending} onClick={onClick} size="lg">
+          Create board
         </Button>
-
-        {/* // custom hook useCase */}
-        {/* <Button size="lg" disabled={pending} onClick={onClick}>
-          Create your Board
-        </Button> */}
       </div>
     </div>
   );

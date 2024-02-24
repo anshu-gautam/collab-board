@@ -30,6 +30,7 @@ export const ConfirmModal = ({
   const handleConfirm = () => {
     onConfirm();
   };
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
