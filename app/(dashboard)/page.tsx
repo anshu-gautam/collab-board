@@ -8,7 +8,7 @@ import { useOrganization } from "@clerk/nextjs";
 interface DashboardPageProps {
   searchParams: {
     search?: string;
-    favourites?: string;
+    favorites?: string;
   };
 }
 

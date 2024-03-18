@@ -9,7 +9,7 @@ import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 
-export const EmptyBoards = () => {
+export const EmptyBoard = () => {
   const router = useRouter();
   const { organization } = useOrganization();
   const { mutate, pending } = useApiMutation(api.board.create);
