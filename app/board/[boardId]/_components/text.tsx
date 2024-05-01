@@ -30,6 +30,7 @@ export const Text = ({
   onPointerDown,
   selectionColor,
 }: TextProps) => {
+  
   const { x, y, width, height, fill, value } = layer;
 
   const updateValue = useMutation(({ storage }, newValue: string) => {

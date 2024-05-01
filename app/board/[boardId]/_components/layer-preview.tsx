@@ -11,6 +11,7 @@ import { on } from "events";
 import { Ellipse } from "./ellipse";
 import { Text } from "./text";
 import { Note } from "./notes";
+import { Path } from "./path";
 
 interface LayerPreviewProps {
   id: string;
@@ -27,6 +28,18 @@ export const LayerPreview = memo(
     }
 
     switch (layer.type) {
+      case LayerType.Path:
+        return (
+          <Path
+            key={id}
+            points={layer.points}
+            onPointerDown={(e) => onLayerPointerDown(e, id)}
+            x={layer.x}
+            y={layer.y}
+            fill={layer.fill ? colorToCss(layer.fill) : "000"}
+            stroke={selectionColor}
+          />
+        );
       case LayerType.Note:
         return (
           <Note
