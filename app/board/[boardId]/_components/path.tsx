@@ -20,7 +20,7 @@ export const Path = ({
 }: PathProps) => {
   return (
     <path
-      className=""
+      className="drop-shadow-md"
       onPointerDown={onPointerDown}
       d={getSvgPathFromStroke(
         getStroke(points, {
